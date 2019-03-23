@@ -1,0 +1,2 @@
+export VAGRANT_USE_VAGRANT_TRIGGERS=0
+echo -n lb-0 controller-0 controller-1 controller-2 worker-0 worker-1 worker-2 | xargs -d" " -P7 -I{} vagrant up {}

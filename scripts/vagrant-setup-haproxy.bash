@@ -51,8 +51,6 @@ backend k8s_backend
 	balance roundrobin
 	mode tcp
 	server controller-0 192.168.199.10:6443 check inter 1000
-	server controller-1 192.168.199.11:6443 check inter 1000
-	server controller-2 192.168.199.12:6443 check inter 1000
 EOF
 
 systemctl restart haproxy
