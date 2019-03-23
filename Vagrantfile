@@ -12,16 +12,16 @@ Vagrant.configure("2") do |config|
   end
 
   # must be at the top
-  config.vm.define "lb-0" do |c|
-      c.vm.hostname = "lb-0"
-      c.vm.network "private_network", ip: "192.168.199.40"
+  #config.vm.define "lb-0" do |c|
+  #    c.vm.hostname = "lb-0"
+  #    c.vm.network "private_network", ip: "192.168.199.40"
 
-      c.vm.provision :shell, :path => "scripts/vagrant-setup-haproxy.bash"
+  #    c.vm.provision :shell, :path => "scripts/vagrant-setup-haproxy.bash"
 
-      c.vm.provider "virtualbox" do |vb|
-        vb.memory = "256"
-      end
-  end
+  #    c.vm.provider "virtualbox" do |vb|
+  #      vb.memory = "256"
+  #    end
+  #end
 
   (0..0).each do |n|
     config.vm.define "controller-#{n}" do |c|
@@ -43,6 +43,9 @@ Vagrant.configure("2") do |config|
 
         c.vm.provision :shell, :path => "scripts/vagrant-setup-routes.bash"
         c.vm.provision :shell, :path => "scripts/vagrant-setup-hosts-file.bash"
+        c.vm.provider "virtualbox" do |vb|
+          vb.memory = "3072"
+        end
     end
   end
 

@@ -1,0 +1,8 @@
+grep -irl '192.168.199' . --exclude-dir=tools --exclude=README.md --exclude=Vagrantfile.ORIG
+grep -irl '10.32' . --exclude-dir=tools --exclude=README.md
+for ip in 10.32 192.168.199;do grep -irl $ip . --exclude-dir=tools --exclude=README.md --exclude=Vagrantfile.ORIG | xargs -n1 -I{} sed 's/192.168.199/192.168.199/g;s/10.32/10.32/g' {};done
+
+Look in the manifest/dashboard folder for yaml's to set it up and the access for it.
+
+Labeling a node
+kubectl label node worker-1 node-role.kubernetes.io/worker=worker

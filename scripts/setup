@@ -1,26 +1,48 @@
 #!/bin/bash
 
 set -euo pipefail
-export VAGRANT_USE_VAGRANT_TRIGGERS=0
-
+export VAGRANT_USE_VAGRANT_TRIGGERS=0 
 readonly dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 pushd "${dir}/../"
 trap 'popd' EXIT
 
+echo "./scripts/distclean"
 ./scripts/distclean
+
 #./scripts/download-tools
-vagrant up
+#vagrant up
+
+echo "./scripts/generate-certs"
 ./scripts/generate-certs
+
+echo "./scripts/generate-kubeconfig-kube-proxy"
 ./scripts/generate-kubeconfig-kube-proxy
+
+echo "./scripts/generate-kubeconfig-worker"
 ./scripts/generate-kubeconfig-worker
+
+echo "./scripts/generate-cni-config"
 ./scripts/generate-cni-config
+
+echo "./scripts/generate-service-files"
 ./scripts/generate-service-files
+
+echo "./scripts/setup-etcd"
 ./scripts/setup-etcd
+
+echo "./scripts/setup-controller-services"
 ./scripts/setup-controller-services
+
+echo "./scripts/setup-kubelet-api-cluster-role"
 ./scripts/setup-kubelet-api-cluster-role
+
+echo "./scripts/setup-worker-services"
 ./scripts/setup-worker-services
+
+echo "./scripts/configure-kubectl-on-host"
 ./scripts/configure-kubectl-on-host
+
 echo -e "\033[1mFinished. Cluster should be healthy and soon in state ready:\033[0m"
 kubectl get componentstatuses
 kubectl get nodes
